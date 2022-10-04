@@ -21,11 +21,11 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 const options = [
   "",
-  <div>
-    <PublicIcon fontSize="small" /> Public: Visible to everyone
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <PublicIcon fontSize="small" /> Public: Visible to everyone 
   </div>,
-  <div>
-    <LockIcon fontSize="small" /> Private: Visible to your followers
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <LockIcon fontSize="small" /> Private: Visible to your followers 
   </div>,
 ];
 
@@ -34,9 +34,9 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
+  width: "40vw",
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "1px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -85,18 +85,14 @@ function PostModal() {
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      paddingTop: 10,
+      paddingTop: 5,
     },
     preview: {
-      marginTop: 10,
+      marginTop: 5,
       display: "flex",
       flexDirection: "column",
     },
-    image: { maxWidth: "60%", maxHeight: "auto" },
-    delete: {
-      cursor: "pointer",
-      padding: 10,
-    },
+    image: { maxWidth: "50%", maxHeight: "50%" },
   };
 
   return (
@@ -116,13 +112,13 @@ function PostModal() {
             <Typography id="modal-modal-title" variant="h5" component="h2">
               Create a new post
             </Typography>
-            <CloseIcon onClick={handleClose} />
+            <CloseIcon style={{cursor:"pointer"}}onClick={handleClose} />
           </div>
           <hr />
 
           <div
             className="profile"
-            style={{ display: "flex", justifyContent: "space-between" }}
+            style={{ paddingTop:"1vh",display: "flex", justifyContent: "space-between" }}
           >
             <div>
               <div className="image-container" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -130,7 +126,7 @@ function PostModal() {
                   style={{ borderRadius: "50%" }}
                   src={billy}
                   alt="profile"
-                /> <Typography style={{ paddingLeft: "5px" }} variant="subtitle1">Billy the Cat</Typography>
+                /> <Typography style={{ paddingLeft: "5px" }} variant="subtitle1"><strong>Billy the Cat</strong></Typography>
               </div>
             </div>
 
@@ -202,7 +198,7 @@ function PostModal() {
                 style={styles.image}
                 alt="Thumb"
               />
-              <Button style={{marginTop:"3px"}} startIcon={<CancelIcon/>}variant="text" onClick={removeSelectedImage}>
+              <Button color="error" style={{marginTop:"3px"}} startIcon={<CancelIcon/>}variant="outlined" onClick={removeSelectedImage}>
                 Remove Image
               </Button>
             </div>
