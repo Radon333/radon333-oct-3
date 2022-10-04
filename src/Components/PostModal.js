@@ -1,40 +1,42 @@
-import React from 'react';
-import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import CloseIcon from '@mui/icons-material/Close';
-import billy from "../assets/billy.png"
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import PublicIcon from '@mui/icons-material/Public';
-import LockIcon from '@mui/icons-material/Lock';
-import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
-import EmojiEmotionsRoundedIcon from '@mui/icons-material/EmojiEmotionsRounded';
+import React from "react";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
+import billy from "../assets/billy.png";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import PublicIcon from "@mui/icons-material/Public";
+import LockIcon from "@mui/icons-material/Lock";
+import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
+import EmojiEmotionsRoundedIcon from "@mui/icons-material/EmojiEmotionsRounded";
+import SendIcon from "@mui/icons-material/Send";
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const options = [
-  '',
+  "",
   <div>
-    <PublicIcon fontSize='small' /> Public: Visible to everyone
+    <PublicIcon fontSize="small" /> Public: Visible to everyone
   </div>,
   <div>
-    <LockIcon fontSize='small' /> Private: Visible to your followers
+    <LockIcon fontSize="small" /> Private: Visible to your followers
   </div>,
 ];
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 600,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -63,10 +65,39 @@ function PostModal() {
   //text field
   const CHARACTER_LIMIT = 250;
   const [values, setValues] = useState({ name: "" });
-  const handleChange = name => event => {
+  const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
+  //image
+  const [selectedImage, setSelectedImage] = useState();
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
+  const removeSelectedImage = () => {
+    setSelectedImage();
+  };
+  const styles = {
+    container: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      paddingTop: 10,
+    },
+    preview: {
+      marginTop: 10,
+      display: "flex",
+      flexDirection: "column",
+    },
+    image: { maxWidth: "60%", maxHeight: "auto" },
+    delete: {
+      cursor: "pointer",
+      padding: 10,
+    },
+  };
 
   return (
     <div>
@@ -78,25 +109,38 @@ function PostModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-
-          <div className="topBar" style={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+          <div
+            className="topBar"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <Typography id="modal-modal-title" variant="h5" component="h2">
               Create a new post
             </Typography>
             <CloseIcon onClick={handleClose} />
           </div>
           <hr />
 
-          <div className='profile' style={{ display: "flex", justifyContent: "space-between" }}>
+          <div
+            className="profile"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
             <div>
- 
-            <img style={{borderRadius:"50%"}}src={billy} alt="profile" /> Billy the cat
+              <div className="image-container" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <img
+                  style={{ borderRadius: "50%" }}
+                  src={billy}
+                  alt="profile"
+                /> <Typography style={{ paddingLeft: "5px" }} variant="subtitle1">Billy the Cat</Typography>
+              </div>
             </div>
-            <div> 
+
+
+
+            <div>
               <List
                 component="nav"
                 aria-label="Device settings"
-                sx={{ bgcolor: 'background.paper' }}
+                sx={{ bgcolor: "background.paper" }}
               >
                 <ListItem
                   button
@@ -104,12 +148,10 @@ function PostModal() {
                   aria-haspopup="listbox"
                   aria-controls="lock-menu"
                   aria-label="when device is locked"
-                  aria-expanded={open ? 'true' : undefined}
+                  aria-expanded={open ? "true" : undefined}
                   onClick={handleClickListItem}
                 >
-                  <ListItemText
-                    primary={options[selectedIndex]}
-                  />
+                  <ListItemText primary={options[selectedIndex]} />
                 </ListItem>
               </List>
               <Menu
@@ -118,8 +160,8 @@ function PostModal() {
                 open={privacyOpen}
                 onClose={handlePrivacyClose}
                 MenuListProps={{
-                  'aria-labelledby': 'lock-button',
-                  role: 'listbox',
+                  "aria-labelledby": "lock-button",
+                  role: "listbox",
                 }}
               >
                 {options.map((option, index) => (
@@ -136,32 +178,71 @@ function PostModal() {
             </div>
           </div>
 
-
           <TextField
             fullWidth
             placeholder="What's happening?"
             inputProps={{
-              maxlength: CHARACTER_LIMIT
+              maxlength: CHARACTER_LIMIT,
             }}
             value={values.name}
             helperText={`${values.name.length}/${CHARACTER_LIMIT}`}
             onChange={handleChange("name")}
             margin="normal"
             variant="filled"
+            rows={5}
+            multiline
           />
 
-          <div className="bottomBar" style={{ display: "flex", justifyContent: "space-between" }}>
-            <div>
-              <ImageRoundedIcon />
-              <EmojiEmotionsRoundedIcon />
-              </div>
-            <Button variant="contained" >Post</Button>
-          </div>
 
+
+          {selectedImage && (
+            <div style={styles.preview}>
+              <img
+                src={URL.createObjectURL(selectedImage)}
+                style={styles.image}
+                alt="Thumb"
+              />
+              <Button style={{marginTop:"3px"}} startIcon={<CancelIcon/>}variant="text" onClick={removeSelectedImage}>
+                Remove Image
+              </Button>
+            </div>
+          )}
+
+          <hr />
+          <div
+            className="bottomBar"
+            style={{
+              paddingTop: "2vh",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Button variant="text" component="label">
+                <input
+                  accept="image/*"
+                  type="file"
+                  onChange={imageChange}
+                  hidden
+                />
+                <ImageRoundedIcon />
+              </Button>
+              <Button variant="text" component="label">
+                <EmojiEmotionsRoundedIcon />
+              </Button>
+            </div>
+            <Button
+              size="large"
+              endIcon={<SendIcon />}
+              variant="contained"
+            >
+              Send Post{" "}
+            </Button>
+          </div>
         </Box>
       </Modal>
     </div>
-  )
+  );
 }
 
-export default PostModal
+export default PostModal;
