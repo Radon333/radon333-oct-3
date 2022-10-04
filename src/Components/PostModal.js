@@ -1,23 +1,29 @@
 import React from "react";
 import { useState } from "react";
+
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+
 import CloseIcon from "@mui/icons-material/Close";
-import billy from "../assets/billy.png";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
 import PublicIcon from "@mui/icons-material/Public";
 import LockIcon from "@mui/icons-material/Lock";
 import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 import EmojiEmotionsRoundedIcon from "@mui/icons-material/EmojiEmotionsRounded";
 import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from '@mui/icons-material/Cancel';
+
+import billy from "../assets/billy.png";
+
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+
 import { motion } from "framer-motion";
 import Fade from '@mui/material/Fade';
 import Backdrop from '@mui/material/Backdrop';
@@ -55,6 +61,7 @@ function PostModal() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const privacyOpen = Boolean(anchorEl);
+
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -83,6 +90,7 @@ function PostModal() {
   const removeSelectedImage = () => {
     setSelectedImage();
   };
+
   const styles = {
     container: {
       display: "flex",
@@ -103,11 +111,9 @@ function PostModal() {
 
   return (
     <div>
-
-
+      {/* Landing Page*/}
       <div style={{ backgroundColor: "#161b22", height: "100vh" }}>
         <br />
-
         <div style={{ paddingTop: "20vh", textAlign: "center" }}>
           <motion.div initial={{ y: -400 }} animate={{ y: 0 }} transition={{ delay: 0.5, duration: 0.5 }}>
             <h1
@@ -141,12 +147,7 @@ function PostModal() {
         </div>
       </div>
 
-
-
-
-
-
-
+      {/* Modal*/}
       <Modal
         open={open}
         onClose={handleClose}
@@ -159,6 +160,7 @@ function PostModal() {
       >
         <Fade in={open}>
           <Box sx={style}>
+            {/* Top bar*/}
             <div
               className="topBar"
               style={{ display: "flex", justifyContent: "space-between" }}
@@ -170,6 +172,7 @@ function PostModal() {
             </div>
             <hr />
 
+            {/* Profile and Post Privacy*/}
             <div
               className="profile"
               style={{ paddingTop: "1vh", display: "flex", justifyContent: "space-between" }}
@@ -183,8 +186,6 @@ function PostModal() {
                   /> <Typography style={{ paddingLeft: "5px" }} variant="subtitle1"><strong>Billy the Cat</strong></Typography>
                 </div>
               </div>
-
-
 
               <div>
                 <List
@@ -228,6 +229,7 @@ function PostModal() {
               </div>
             </div>
 
+            {/* Text Area 250*/}
             <TextField
               fullWidth
               placeholder="What's happening?"
@@ -243,8 +245,7 @@ function PostModal() {
               multiline
             />
 
-
-
+            {/* Image Preview*/}
             {selectedImage && (
               <div style={styles.preview}>
                 <img
